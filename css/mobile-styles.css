@@ -1,6 +1,10 @@
 @charset "utf-8";
 /* CSS Document */
 
+
+/* Styling for devices under 1000px of width, ideally tablets and smartphones.
+ * The main changes from the original stylesheet reside in sizing / aesthetic changes
+ * and changes in the properties of the FLEX layout. */
 body,td,th,p{
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10pt;
@@ -11,6 +15,7 @@ body {
 	background-color: #fdfdfd;
 	margin: 0;
 	position:relative;
+	max-width: 100vw;
 }
 ul, li {
 	font-family: Arial, Helvetica, sans-serif;
@@ -48,62 +53,51 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   text-align: center;
   text-transform: uppercase;
 }
-/* Aesthetic class to change the appearance of headings with important infos */
 .heading {
 	background-color: #555;
 	color: #fc2;
 }
-/****************************************************************************************************/
 /* ====================== Navigation ====================== */
 nav {
   width: 100%;
-  height: 80px;
   background-color: #252831;
   text-align:center;
 }
 nav h1 {
+	padding: 20px 0;
   margin: auto;
 }
 nav h1 a {
   color: #fff;
-  font-size: 14pt;
+  font-size: 22pt;
   font-weight: 200;
 	letter-spacing: 10px;
-	/* Adjustments to center the link in the nav heading and ensure a good "click area" */
-	line-height: 80px;
-	margin-top: -14pt;
 	padding: 15px;
-	/****************************************************************************************************/
   text-transform: uppercase;
 }
 #breadcrumb {
-    padding: 10px 40px 16px;
+    padding: 30px 40px;
     list-style: none;
     background-color: #eee;
     margin: 0;
-    width: calc(50% - 80px);
+    width: calc(100%-80px);
 }
-
 /* Display list items side by side */
 #breadcrumb li {
-		/* Moved the 'font-size' property to not overlap with the properties for general 'li' elements */
-		font-size: 13pt;
+		font-size: 20pt;
     display: inline;
 }
-
 /* Add a slash symbol (/) before/behind each list item */
 #breadcrumb li+li:before {
     padding: 8px;
     color: black;
     content: "/\00a0";
 }
-
 /* Add a color to all links inside the list */
 #breadcrumb li a {
     color: #0275d8;
     text-decoration: none;
 }
-
 /* Add a color on mouse-over */
 #breadcrumb li a:hover {
     color: #01447e;
@@ -117,50 +111,39 @@ nav h1 a {
 }
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
-	/* I chose to use a FLEX display to ensure a grid-based layout, as GRID seemed superfluous for
-	such a small number of rows / columns */
 	display: flex;
+	flex-flow: row wrap;
 	justify-content: center;
-	/****************************************************************************************************/
   width: 100%;
-  height: 50px;
   background-color: #3397DB;
   align-items: center;
 }
-/* Applying a base "flex" properties for all items */
-.filter-options > * {
-	flex: 0 1 auto;
-}
-/****************************************************************************************************/
 .filter-options h2 {
+	flex: 0 1 600px;
+	padding-top: 20px;
   color: white;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: normal;
   line-height: 1;
   margin: 0 20px;
 }
 .filter-options select {
+	flex: 1 auto;
   background-color: white;
   border: 1px solid #fff;
   font-family: Arial,sans-serif;
-  font-size: 11pt;
+  font-size: 16pt;
   height: 35px;
   letter-spacing: 0;
   margin: 10px;
   padding: 0 10px;
-	/* To ensure readability and easy-click: */
-  min-width: 200px;
-	/****************************************************************************************************/
+  width: 200px;
 }
-
 /* ====================== Restaurant Listing ====================== */
 #restaurants-list {
-	/* I chose to use a FLEX display to ensure a grid-based layout, as GRID seemed superfluous for
-	such a small number of rows / columns */
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
-	/****************************************************************************************************/
   background-color: #f3f3f3;
   list-style: outside none none;
   margin: 0;
@@ -168,29 +151,25 @@ nav h1 a {
   text-align: center;
 }
 #restaurants-list li {
+	flex: 1 auto;
+	border-radius: 25px 0;
   background-color: #fff;
+  /* border: 2px solid #ccc; */
   font-family: Arial,sans-serif;
   margin: 15px;
-	/* Aesthetic change */
-	border-radius: 25px 0;
-	/* With the aesthetic changes to the content, it's needed to ensure a correct minimum size to make
-	the element look good on most device sizes, due to dynamic update to the contents' sizes */
-  min-height: 420px;
-	width: 300px;
-	/****************************************************************************************************/
+  min-height: 440px;
+  /* padding: 0 30px 25px; */
   text-align: left;
+  width: 250px;
 }
 #restaurants-list .restaurant-img {
-	/* Aesthetic change */
 	border-radius: 25px 0 0 0;
-	/* Responsive image: adapts the width and height to the container, without any ugly stretching */
-	max-width: 100%;
-  min-width: 100%;
-	height: auto;
-	/****************************************************************************************************/
   background-color: #ccc;
   display: block;
   margin: 0;
+  max-width: 100%;
+  min-width: 100%;
+	height: auto;
 }
 #restaurants-list li h1 {
   font-family: Arial,sans-serif;
@@ -199,16 +178,12 @@ nav h1 a {
   letter-spacing: 0;
   line-height: 1.3;
   text-transform: uppercase;
-	/* Changes to padding / margin to better visualize the element */
 	padding: 15px 30px 15px;
-	/****/
 }
 #restaurants-list p {
   margin: 0;
   font-size: 11pt;
-	/* Changes to padding / margin to better visualize the element */
 	padding: 0 30px;
-	/****/
 }
 #restaurants-list li a {
   background-color: orange;
@@ -216,24 +191,16 @@ nav h1 a {
   color: #fff;
   display: inline-block;
   font-size: 10pt;
-	/* Changes to padding / margin to better visualize the element */
   margin: 15px 30px 0;
-	/****/
   padding: 8px 30px 10px;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
 }
-
 /* ====================== Restaurant Details ====================== */
 .inside header {
-  position: fixed;
-  top: 0;
   width: 100%;
-  z-index: 1000;
 }
-/* Ensuring that MAIN takes the full body space and uses a FLEX display to layout
-map-container and restaurant-sidebar */
 .inside main {
 	height: 100vh;
 	width: 100%;
@@ -241,34 +208,28 @@ map-container and restaurant-sidebar */
 	display: flex;
 	flex-flow: row wrap;
 }
-/* Setting the flex property for the two items */
-.inside main #restaurant-sidebar { order: 1; overflow-y: auto; flex: 1 1 auto; }
-.inside main #map-container { order: 2; flex: 1 1 auto; }
-/* Ensuring that the first container (restaurant) takes max half-page in width in Desktop view */
+.inside main #restaurant-sidebar { order: 2; flex: 1 1 auto; }
+.inside main #map-container { order: 1; flex: 1 1 auto; }
 .inside main #restaurant-sidebar{
-	max-width: 50%;
+	width: 100%;
 }
-/****************************************************************************************************/
 .inside #map-container {
   background: blue none repeat scroll 0 0;
-  height: 87%;
-	/* No need for fixed positioning, as the element is now in a flex container */
-	margin-top: 80px;
+  height: 450px;
+	width: 100%;
 }
 .inside #map {
   background-color: #ccc;
   height: 100%;
   width: 100%;
 }
-/* As a personal preference, I thought the footer looked better fixed on the bottom
-and always visible */
-#footer {
+.inside #footer {
   bottom: 0;
   position: fixed;
   width: 100%;
+	padding: 25px 0;
 	z-index: 1001;
 }
-/****************************************************************************************************/
 #restaurant-name {
   color: #f18200;
   font-family: Arial,sans-serif;
@@ -280,7 +241,6 @@ and always visible */
   line-height: 1.1;
 }
 #restaurant-img {
-	/* Resizing changes */
 	width: 100%;
 }
 #restaurant-address {
@@ -297,18 +257,15 @@ and always visible */
   padding: 2px 0;
   text-align: center;
   text-transform: uppercase;
-	/* Resizing changes */
 	width: 100%;
 }
 #restaurant-container, #reviews-container {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
-	/* Resizing changes */
-  padding: 140px 5% 30px;
+  padding: 30px 5% 30px;
   width: 90%;
 }
 #reviews-container {
-	/* Resizing changes */
   padding: 30px 5% 80px;
 }
 #reviews-container h2 {
@@ -323,31 +280,28 @@ and always visible */
   padding: 0;
 }
 #reviews-list li {
-	/* Aesthetic changes */
 	border-radius: 25px 0;
-	/* Resizing changes */
-  padding: 0 0 20px;
-	width: 100%;
-	/****************************************************************************************************/
   background-color: #fff;
   border: 2px solid #f3f3f3;
   display: block;
   list-style-type: none;
   margin: 0 0 30px;
   overflow: hidden;
+  padding: 0 0 20px;
   position: relative;
+  width: 100%;
 }
-/* Resizing changes applied to all items */
 #reviews-list li > * {
 	padding: 0 7%;
 	width: 86%;
 }
-/* Resizing changes */
 #reviews-list li .heading {
 	padding: 20px 7%;
 	font-size: 16pt;
 }
-/* New styling for the rating 'p', to follow the mockup images from Udacity */
+#reviews-list li p {
+  margin: 0 0 10px;
+}
 #reviews-list li .rating {
 	border-radius: 5px;
 	display: block;
@@ -361,10 +315,6 @@ and always visible */
 	padding: 10px;
 	min-width: 0px;
 	max-width: 80pt;
-}
-/****************************************************************************************************/
-#reviews-list li p {
-  margin: 0 0 10px;
 }
 #restaurant-hours td {
   color: #666;
