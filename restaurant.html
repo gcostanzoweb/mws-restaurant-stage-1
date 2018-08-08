@@ -19,12 +19,12 @@
   <!-- Beginning header -->
   <header>
     <!-- Beginning nav -->
-    <nav>
+    <nav role="navigation">
       <h1><a href="/">Restaurant Reviews</a></h1>
     </nav>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb" >
-      <li><a href="/">Home</a></li>
+    <ul id="breadcrumb" role="list">
+      <li><a href="/" role="listitem">Home</a></li>
     </ul>
     <!-- End breadcrumb -->
     <!-- End nav -->
@@ -32,27 +32,34 @@
   <!-- End header -->
 
   <!-- Beginning main -->
-  <main id="maincontent">
+	<!-- Using a label to have a better, descriptive MAIN -->
+	<label class="hidden" id="main-label">Restaurant infos, working hours and reviews</label>
+  <main id="maincontent" tabindex="0" aria-labelledby="main-label">
     <!-- Beginning map -->
-    <section id="map-container">
-      <div id="map"></div>
+		<!-- Avoiding accessible interaction with the map, as the infos it holds are redundant with the rest of the content -->
+    <section id="map-container" tabindex="-1" aria-hidden="true" role="group">
+      <div id="map" tabindex="-1"></div>
     </section>
     <!-- End map -->
 		<!-- Inserting the two sections inside a single container <section> makes it easier to use the
 		flex layout, having to work with just two items instead of three -->
-		</section>
 		<section id="restaurant-sidebar">
 	    <!-- Beginning restaurant -->
 	    <section id="restaurant-container">
-	      <h1 id="restaurant-name"></h1>
+	      <h1 id="restaurant-name" tabindex="0" aria-describedby="restaurant-description"></h1>
 	      <img id="restaurant-img">
-	      <p id="restaurant-cuisine"></p>
-	      <p id="restaurant-address"></p>
-	      <table id="restaurant-hours"></table>
+				<label id="restaurant-description">
+	      	<p id="restaurant-cuisine"></p>
+	      	<p id="restaurant-address"></p>
+				</label>
+
+				<label id="restaurant-hours-desc" tabindex="0" class="hidden">Working hours for this restaurant</label>
+	      <table id="restaurant-hours" tabindex="0" role="table" name="Restaurant Hours" aria-describedby="restaurant-hours-desc"></table>
+
 	    </section>
 	    <!-- end restaurant -->
 	    <!-- Beginning reviews -->
-	    <section id="reviews-container">
+	    <section id="reviews-container" tabindex="0" role="list" name="Reviews">
 	      <ul id="reviews-list"></ul>
 	    </section>
 	    <!-- End reviews -->

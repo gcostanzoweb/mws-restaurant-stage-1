@@ -5,6 +5,16 @@
 /* Styling for devices under 1000px of width, ideally tablets and smartphones.
  * The main changes from the original stylesheet reside in sizing / aesthetic changes
  * and changes in the properties of the FLEX layout. */
+
+/* Accessibility addition */
+.hidden {
+position: absolute !important;
+height: 1px; width: 1px;
+overflow: hidden;
+clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+clip: rect(1px, 1px, 1px, 1px);
+}
+
 body,td,th,p{
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10pt;
@@ -119,7 +129,7 @@ nav h1 a {
   align-items: center;
 }
 .filter-options h2 {
-	flex: 0 1 600px;
+	flex: 0 1 1000px;
 	padding-top: 20px;
   color: white;
   font-size: 1.5rem;
@@ -291,9 +301,13 @@ nav h1 a {
   position: relative;
   width: 100%;
 }
-#reviews-list li > * {
+#reviews-list li * {
 	padding: 0 7%;
 	width: 86%;
+}
+#reviews-list div[id^='review-desc'] {
+	padding: 0;
+	width: 100%
 }
 #reviews-list li .heading {
 	padding: 20px 7%;

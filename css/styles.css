@@ -1,6 +1,16 @@
 @charset "utf-8";
 /* CSS Document */
 
+/* Accessibility addition */
+.hidden {
+position: absolute !important;
+height: 1px; width: 1px;
+overflow: hidden;
+clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+clip: rect(1px, 1px, 1px, 1px);
+}
+
+
 body,td,th,p{
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10pt;
@@ -338,9 +348,13 @@ and always visible */
   position: relative;
 }
 /* Resizing changes applied to all items */
-#reviews-list li > * {
+#reviews-list li * {
 	padding: 0 7%;
 	width: 86%;
+}
+#reviews-list div[id^='review-desc'] {
+	padding: 0;
+	width: 100%
 }
 /* Resizing changes */
 #reviews-list li .heading {

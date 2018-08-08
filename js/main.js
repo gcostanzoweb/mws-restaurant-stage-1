@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added
   fetchNeighborhoods();
   fetchCuisines();
+	/* The following line erases map interaction from the Accessibility Tree: adding accesible interaction might be
+	 * a waste of time, as it's redundant with infos that are more well-organized in the rest of the page */
+	document.querySelectorAll("#map *, .leaflet-marker-icon").forEach(function(el){el.setAttribute('tabindex','-1')});
 });
 
 /**
@@ -147,16 +150,21 @@ resetRestaurants = (restaurants) => {
  */
 fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
-  restaurants.forEach(restaurant => {
+	/* Had to refactor this function to be able to number IDs, to add ARIA functionalities */
+	for(var i = 0; i < restaurants.length; i++) ul.append(createRestaurantHTML(restaurants[i], i));
+	/* Previous original code
+	restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
+	*/
   addMarkersToMap();
 }
 
 /**
  * Create restaurant HTML.
  */
-createRestaurantHTML = (restaurant) => {
+/* The function now uses an index to add numbered IDs to the restaurant's contents */
+createRestaurantHTML = (restaurant, num) => {
   const li = document.createElement('li');
 
   const image = document.createElement('img');
@@ -167,20 +175,30 @@ createRestaurantHTML = (restaurant) => {
   const name = document.createElement('h1');
 	/* Added a 'heading' class to work with CSS */
 	name.className = 'heading';
+	name.id = 'restaurant'+num;
   name.innerHTML = restaurant.name;
   li.append(name);
 
+	/* Using a new container to hold all descriptive infos, to later be used */
+	const description = document.createElement('div');
+	description.id = 'description'+num;
+
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
-  li.append(neighborhood);
+  description.append(neighborhood);
 
   const address = document.createElement('p');
   address.innerHTML = restaurant.address;
-  li.append(address);
+  description.append(address);
+
+	li.append(description);
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
+	/* Adding ARIA functionalities */
+	more.setAttribute('aria-labelledby', 'restaurant'+num);
+	more.setAttribute('aria-describedby', 'description'+num);
   li.append(more)
 
   return li

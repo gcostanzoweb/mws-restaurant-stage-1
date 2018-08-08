@@ -6,6 +6,9 @@ var newMap;
  */
 document.addEventListener('DOMContentLoaded', (event) => {
   initMap();
+	/* The following line erases map interaction from the Accessibility Tree: adding accesible interaction might be
+	 * a waste of time, as it's redundant with infos that are more well-organized in the rest of the page */
+	document.querySelectorAll("#map *, .leaflet-marker-icon").forEach(function(el){el.setAttribute('tabindex','-1')});
 });
 
 /**
@@ -83,12 +86,14 @@ fetchRestaurantFromURL = (callback) => {
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
+	/* ARIA attribute */
+	name.setAttribute('name', restaurant.name);
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
+  image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   const cuisine = document.getElementById('restaurant-cuisine');
@@ -138,36 +143,52 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     return;
   }
   const ul = document.getElementById('reviews-list');
+	/* Had to refactor this function to be able to number IDs, to add ARIA functionalities */
+	for(var i = 0; i < reviews.length; i++) ul.appendChild(createReviewHTML(reviews[i], i));
+	/* Previous original code
   reviews.forEach(review => {
     ul.appendChild(createReviewHTML(review));
   });
+	*/
   container.appendChild(ul);
 }
 
 /**
  * Create review HTML and add it to the webpage.
  */
-createReviewHTML = (review) => {
+/* The function now uses an index to add numbered IDs to the review's contents */
+createReviewHTML = (review, i) => {
   const li = document.createElement('li');
+	/* A series of ARIA attributes */
+	li.setAttribute('tabindex','0');
+	li.setAttribute('role','listitem');
+	li.setAttribute('aria-label','Review by '+review.name);
+	li.setAttribute('aria-describedby','review-desc'+i);
   const name = document.createElement('p');
 	/* Added a 'heading' class to work with CSS */
 	name.className = 'heading';
   name.innerHTML = review.name;
   li.appendChild(name);
 
+	/* Using a new container to hold all descriptive infos, to later be used */
+	const content = document.createElement('div');
+	content.id = "review-desc"+i;
+
   const date = document.createElement('p');
   date.innerHTML = review.date;
-  li.appendChild(date);
+  content.appendChild(date);
 
   const rating = document.createElement('p');
   rating.innerHTML = `Rating: ${review.rating}`;
 	/* Added a 'rating' class to work with CSS */
 	rating.className = 'rating';
-  li.appendChild(rating);
+  content.appendChild(rating);
 
   const comments = document.createElement('p');
   comments.innerHTML = review.comments;
-  li.appendChild(comments);
+  content.appendChild(comments);
+
+	li.appendChild(content);
 
   return li;
 }
@@ -179,6 +200,8 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
   li.innerHTML = restaurant.name;
+	/* Adding ARIA functionalities */
+	li.setAttribute('tabindex','0');
   breadcrumb.appendChild(li);
 }
 
