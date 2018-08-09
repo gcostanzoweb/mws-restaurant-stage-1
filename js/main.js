@@ -11,11 +11,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	initMap(); // added
 	fetchNeighborhoods();
 	fetchCuisines();
-	/* The following line erases map interaction from the Accessibility Tree: adding accesible interaction might be
-	 * a waste of time, as it's redundant with infos that are more well-organized in the rest of the page */
-	document.querySelectorAll("#map *, .leaflet-marker-icon").forEach(function(el) {
-		el.setAttribute('tabindex', '-1')
-	});
 });
 
 /**
@@ -171,6 +166,8 @@ createRestaurantHTML = (restaurant, num) => {
 
 	const image = document.createElement('img');
 	image.className = 'restaurant-img';
+	image.setAttribute('alt','Photo of the restaurant '+restaurant.name);
+	image.setAttribute('tabindex','0');
 	image.src = DBHelper.imageUrlForRestaurant(restaurant);
 	li.append(image);
 

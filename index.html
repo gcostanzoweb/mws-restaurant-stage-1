@@ -25,9 +25,11 @@
 	<!-- Using a label to have a better, descriptive MAIN -->
 	<label class="hidden" id="main-label">List of all restaurants</label>
 	<main id="maincontent" tabindex="0" aria-labelledby="main-label">
+		<!-- Link to skip the map for screen reader users -->
+		<a class="hidden" href="#filter-label">Skip to the content</a>
 		<!-- Avoiding accessible interaction with the map, as the infos it holds are redundant with the rest of the content -->
-		<section id="map-container" tabindex="-1" aria-hidden="true" role="group">
-			<div id="map" tabindex="-1"></div>
+		<section id="map-container" tabindex="0" aria-label="Interactive map of the restaurants" role="presentation">
+			<div id="map" tabindex="-1" aria-hidden="true"></div>
 		</section>
 		<section>
 			<div class="filter-options">
