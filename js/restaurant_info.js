@@ -198,9 +198,8 @@ createReviewHTML = (review, i) => {
 fillBreadcrumb = (restaurant = self.restaurant) => {
 	const breadcrumb = document.getElementById('breadcrumb');
 	const li = document.createElement('li');
-	li.innerHTML = restaurant.name;
-	/* Adding ARIA functionalities */
-	li.setAttribute('tabindex', '0');
+	li.innerHTML =
+	`<a aria-current="page" id="current" href="restaurant.html?id=${restaurant.id}">${restaurant.name}</a>`;
 	breadcrumb.appendChild(li);
 }
 

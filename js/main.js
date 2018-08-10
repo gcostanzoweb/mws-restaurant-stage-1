@@ -171,7 +171,7 @@ createRestaurantHTML = (restaurant, num) => {
 	image.src = DBHelper.imageUrlForRestaurant(restaurant);
 	li.append(image);
 
-	const name = document.createElement('h1');
+	const name = document.createElement('h2');
 	/* Added a 'heading' class to work with CSS */
 	name.className = 'heading';
 	name.id = 'restaurant' + num;

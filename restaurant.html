@@ -19,14 +19,16 @@
 <body class="inside">
 	<!-- Beginning header -->
 	<header>
-		<!-- Beginning nav -->
-		<nav role="navigation">
-			<h1><a href="/">Restaurant Reviews</a></h1>
-		</nav>
+		<!-- Adding the main link to the Accessibility tree would be redundant because of the breadcrumbs -->
+		<section class="headline">
+			<h1><a href="/" aria-hidden="true" tabindex="-1">Restaurant Reviews</a></h1>
+		</section>
 		<!-- Beginning breadcrumb -->
-		<ul id="breadcrumb" role="list">
-			<li><a href="/" role="listitem">Home</a></li>
-		</ul>
+		<nav aria-label="Breadcrumb" role="navigation">
+			<ul id="breadcrumb">
+				<li><a href="/">Home</a></li>
+			</ul>
+		</nav>
 		<!-- End breadcrumb -->
 		<!-- End nav -->
 	</header>
@@ -40,7 +42,7 @@
 		<!-- Link to skip the map for screen reader users -->
 		<a class="hidden" href="#restaurant-sidebar">Skip to the content</a>
 		<!-- Avoiding accessible interaction with the map, as the infos it holds are redundant with the rest of the content -->
-		<section id="map-container" tabindex="0" aria-label="Interactive map of the restaurants" role="presentation">
+		<section id="map-container" tabindex="0" aria-label="Interactive map of the restaurants" role="application">
 			<div id="map" tabindex="-1" aria-hidden="true"></div>
 		</section>
 		<!-- End map -->
@@ -49,7 +51,7 @@
 		<section id="restaurant-sidebar">
 			<!-- Beginning restaurant -->
 			<section id="restaurant-container">
-				<h1 id="restaurant-name" tabindex="0" aria-describedby="restaurant-description"></h1>
+				<h2 id="restaurant-name" tabindex="0" aria-describedby="restaurant-description"></h2>
 				<img id="restaurant-img">
 				<label id="restaurant-description">
 					<p id="restaurant-cuisine"></p>

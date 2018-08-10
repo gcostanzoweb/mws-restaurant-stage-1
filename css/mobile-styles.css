@@ -97,18 +97,18 @@ section {
 }
 
 /* ====================== Navigation ====================== */
-nav {
+.headline {
 	width: 100%;
 	background-color: #252831;
 	text-align: center;
 }
 
-nav h1 {
+.headline h1 {
 	padding: 20px 0;
 	margin: auto;
 }
 
-nav h1 a {
+.headline h1 a {
 	color: #fff;
 	font-size: 22pt;
 	font-weight: 200;
@@ -136,6 +136,11 @@ nav h1 a {
 	padding: 8px;
 	color: black;
 	content: "/\00a0";
+}
+
+#breadcrumb li #current {
+	text-decoration: none;
+	color: #222;
 }
 
 /* Add a color to all links inside the list */
@@ -227,7 +232,7 @@ nav h1 a {
 	height: auto;
 }
 
-#restaurants-list li h1 {
+#restaurants-list li h2 {
 	font-family: Arial, sans-serif;
 	font-size: 12pt;
 	font-weight: 200;
